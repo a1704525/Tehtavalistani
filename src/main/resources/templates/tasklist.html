@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Tehtävät</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet'
+	href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'
+	integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
+	crossorigin='anonymous'>
+<script src=js/sort.script.js></script>
+
+</head>
+<body>
+
+	<header class="header-center">
+
+		<ul>
+			<li><a href="/index">Etusivu</a></li>
+			<li><a href="/tasklist">Kaikki</a></li>
+			<li><a href="/person/2/tasklist">Äiti</a></li>
+			<li><a href="/person/5/tasklist">Isi</a></li>
+			<li><a href="/person/3/tasklist">Lydia</a></li>
+			<li><a href="/person/4/tasklist">Sofia</a></li>
+
+			<li style="float: right"><form th:action="@{/logout}"
+					method="post">
+					<input type="submit" value="Kirjaudu ulos" class="active" />
+				</form></li>
+		</ul>
+
+
+	</header>
+
+	<div class="tasklist-center">
+
+
+
+		<h3 class="task" th:inline="text">Tervetuloa
+			[[${#httpServletRequest.remoteUser}]]</h3>
+
+		<a sec:authorize="hasAuthority('ADMIN')" class="lisaa" href="/add">Lisää
+			tehtävä</a>
+		<table id="tasktable" class="table table-striped">
+			<tr>
+
+				<th><div class="dropup">
+						<button class="dropbtn">
+							<h5 class="h5-tasklist">
+								Valitse henkilö <i class='fas fa-chevron-down'></i>
+							</h5>
+						</button>
+						<div class="dropup-content">
+							<a href="/person/2/tasklist">Äiti</a> <a
+								href="/person/5/tasklist">Isi</a> <a href="/person/3/tasklist">Lydia</a>
+							<a href="/person/4/tasklist">Sofia</a>
+						</div>
+
+					</div></th>
+				<th><h5 class="h5-tasklist">Tehtävä</h5></th>
+				<th onclick="w3.sortHTML('#tasktable', '.item', 'td:nth-child(3)')"
+					style="cursor: pointer"><h5 class="h5-tasklist">Päivä
+						&#8597;</h5></th>
+				<th onclick="w3.sortHTML('#tasktable', '.item', 'td:nth-child(4)')"
+					style="cursor: pointer"><h5 class="h5-tasklist">Kello
+						&#8597;</h5></th>
+				<th sec:authorize="hasAuthority('ADMIN')"><h5
+						class="h5-tasklist">Muokkaa</h5></th>
+				<th sec:authorize="hasAuthority('ADMIN')"><h5
+						class="h5-tasklist">Poista</h5></th>
+				<th sec:authorize="hasAuthority('USER')"></th>
+				<th sec:authorize="hasAuthority('USER')"></th>
+
+			</tr>
+
+			<tr class="item" th:each="task : ${tasks}">
+				<td class="td-tasklist" th:text="${task.person.name}"></td>
+				<td class="td-tasklist" th:text="${task.taskname}"></td>
+				<td class="td-tasklist"
+					th:text="${#dates.format(task.deadline, 'yyyy-MM-dd')}"></td>
+				<td class="td-tasklist"
+					th:text="${#dates.format(task.time, 'HH:mm')}"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a
+					th:href="@{/edit/{id}(id=${task.taskid})}" class="edit"><i
+						class='far fa-edit'></i></a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a
+					th:href="@{/delete/{id}(id=${task.taskid})}" class="delete"><b>X</b></a></td>
+				<td class="td-tasklist" sec:authorize="hasAuthority('USER')"></td>
+				<td class="td-tasklist" sec:authorize="hasAuthority('USER')"></td>
+			</tr>
+		</table>
+
+
+	</div>
+	<footer class="card-footer"> </footer>
+</body>
+</html>

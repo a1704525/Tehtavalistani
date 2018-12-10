@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:ddl="http://www.thymeleaf.org/danelion">
+<head>
+<title>Add Task</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<link rel='stylesheet'
+	href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'
+	integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
+	crossorigin='anonymous'>
+</head>
+<body>
+
+	<header class="addtask-centers">
+
+		<ul>
+			<li><a href="/index">Etusivu</a></li>
+			<li><a href="/tasklist">Kaikki</a></li>
+			<li><a href="/person/2/tasklist">Äiti</a></li>
+			<li><a href="/person/5/tasklist">Isi</a></li>
+			<li><a href="/person/3/tasklist">Lydia</a></li>
+			<li><a href="/person/4/tasklist">Sofia</a></li>
+
+			<li style="float: right"><form th:action="@{/logout}"
+					method="post">
+					<input type="submit" value="Kirjaudu ulos" class="active" />
+				</form></li>
+		</ul>
+
+
+	</header>
+
+	<div class="addtask-center">
+		<h1 class="korostus">Lisää tehtävä</h1>
+		<div>
+			<div class="task">
+				<form th:object="${task}" th:action="@{../save}" action="#"
+					method="post">
+
+
+					<label for="person">Kenen</label> <select id="person"
+						th:field="*{person}" class="addtask">
+						<option th:each="person: ${persons}" th:value="${person.personid}"
+							th:text="${person.name}"></option>
+					</select>
+					<div style="clear: both; display: block; height: 10px;"></div>
+
+					<label for="taskname">Tehtävä</label> <input type="text"
+						id="taskname" th:field="*{taskname}" class="addtask" />
+					<div style="clear: both; display: block; height: 10px;"></div>
+
+					<label for="deadline">Päivä</label> <input type="date" name="date"
+						class="addtask" id="deadline" th:field="*{deadline}" /> <label
+						for="time">Kello</label> <input type="time" name="time"
+						class="addtask" id="time" th:field="*{time}" />
+
+					<div>
+						<p></p>
+					</div>
+
+					<input type="submit" class="save" value="Tallenna"></input> <a
+						class="peruuta" href="../tasklist">Peruuta</a>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+	<footer class="card-footer"> </footer>
+</body>
+</html>

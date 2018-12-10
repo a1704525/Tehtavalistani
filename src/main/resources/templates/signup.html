@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>signup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<header class="card-header"> </header>
+	<div class="signup-center">
+		<h1 class="h1-sign-up">Luo käyttäjä</h1>
+		<div class="korostus">
+			<form th:object="${signupform}" th:action="@{/saveuser}" action="#"
+				method="post">
+				<div>
+					<label> Käyttäjätunnus:<input type="text"
+						th:field="*{username}" class="form-control" /></label>
+					<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username
+						Error</p>
+				</div>
+				<div>
+					<label> Salasana:<input type="password"
+						th:field="*{password}" class="form-control" /></label>
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+						Error</p>
+				</div>
+				<div>
+					<label> Kirjoita salasana uudelleen: <input type="password"
+						th:field="*{passwordCheck}" class="form-control" /></label>
+					<p th:if="${#fields.hasErrors('passwordCheck')}"
+						th:errors="*{passwordCheck}">Password Match Error</p>
+				</div>
+
+				<input type="submit" class="btn btn-success" value="Tallenna"></input>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

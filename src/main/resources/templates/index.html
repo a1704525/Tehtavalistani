@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+<title>Index</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+</head>
+<body>
+
+	<header class="centers">
+
+		<ul>
+			<li><a href="/index">Etusivu</a></li>
+
+
+			<li style="float: right"><form th:action="@{/logout}"
+					method="post">
+					<input type="submit" value="Kirjaudu ulos" class="active" />
+				</form></li>
+		</ul>
+
+
+	</header>
+	<div class="alltasks-center">
+
+		<h3 class="task" th:inline="text">Tervetuloa
+			[[${#httpServletRequest.remoteUser}]]</h3>
+
+		<a class="alltasksAA" href="/tasklist">Kaikki tehtävät</a> <a
+			class="alltasksA" href="/person/2/tasklist">Äiti</a> <a
+			class="alltasksA" href="/person/5/tasklist">Isi</a> <a
+			class="alltasksA" href="/person/3/tasklist">Lydia</a> <a
+			class="alltasksA" href="/person/4/tasklist">Sofia</a>
+
+	</div>
+
+
+	<footer class="card-footer"> </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Loging</title>
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+
+	<header class="centers">
+
+		<ul>
+			<li><a href="/index">Etusivu</a></li>
+
+			<li style="float: right"><form th:action="@{/logout}"
+					method="post">
+					<input type="submit" value="Kirjaudu ulos" class="active" />
+				</form></li>
+		</ul>
+
+
+	</header>
+
+	<div class="login-center">
+
+		<h1 class="div-index">Tehtävälista</h1>
+		<div>
+			<div class="alert alert-danger, " th:if="${param.error}">
+				Invalid username and password.</div>
+			<div class="alert alert-warning" th:if="${param.logout}">You
+				have been logged out.</div>
+		</div>
+		<div class="korostus">
+			<form th:action="@{/login}" method="post">
+				<div>
+					<label> Käyttäjätunnus: <input type="text" name="username"
+						class="form-control" />
+					</label>
+				</div>
+				<div>
+					<label> Salasana: <input type="password" name="password"
+						class="form-control" />
+					</label>
+				</div>
+				<div>
+					<input type="submit" value="Kirjaudu" class="btn btn-success" />
+				</div>
+			</form>
+			<a class="korostus" th:href="@{/signup}">Luo käyttäjä</a>
+		</div>
+	</div>
+	<footer class="card-footer"> </footer>
+</body>
+</html>
